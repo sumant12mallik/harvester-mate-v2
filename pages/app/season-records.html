@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Season Records - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon">📅</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">Season Records</div>
+          <div class="navbar-subtitle">Historical data</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <!-- Year & Season selectors -->
+    <div class="grid-2" style="gap:12px; margin-bottom:16px;">
+      <div class="input-group" style="margin-bottom:0;">
+        <label class="input-label">Year</label>
+        <select id="yearSelect" class="input-field">
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="input-group" style="margin-bottom:0;">
+        <label class="input-label">Season</label>
+        <select id="seasonSelect" class="input-field">
+          <option value="Kharif">Kharif</option>
+          <option value="Rabi">Rabi</option>
+          <option value="Zaid">Zaid</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Summary grid -->
+    <div class="grid-2" style="gap:12px; margin-bottom:16px;">
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(0,255,136,0.15);
+                      color:#00FF88; display:flex; align-items:center; justify-content:center; font-size:16px;">👥</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Total Customers</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#fff; font-family:monospace;" id="recCustomers">0</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(74,158,255,0.15);
+                      color:#4A9EFF; display:flex; align-items:center; justify-content:center; font-size:16px;">⏱️</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Working Hours</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#4A9EFF; font-family:monospace;" id="recHours">0</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(0,255,136,0.15);
+                      color:#00FF88; display:flex; align-items:center; justify-content:center; font-size:16px;">💰</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Total Income</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#00FF88; font-family:monospace;" id="recIncome">₹0</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(255,71,87,0.15);
+                      color:#FF4757; display:flex; align-items:center; justify-content:center; font-size:16px;">💵</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Total Expense</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#FF4757; font-family:monospace;" id="recExpense">₹0</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(156,111,255,0.15);
+                      color:#9C6FFF; display:flex; align-items:center; justify-content:center; font-size:16px;">📈</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Net Balance</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#9C6FFF; font-family:monospace;" id="recBalance">₹0</div>
+      </div>
+      <div class="card" style="padding:16px;">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(255,167,38,0.15);
+                      color:#FFA726; display:flex; align-items:center; justify-content:center; font-size:16px;">⛽</div>
+          <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Diesel Used</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#FFA726; font-family:monospace;" id="recDiesel">0 L</div>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="card" style="padding:16px;">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:16px;">Income vs Expense</div>
+      <div class="chart-legend" style="margin-bottom:12px;">
+        <div class="legend-item"><span class="legend-dot green"></span> Income</div>
+        <div class="legend-item"><span class="legend-dot orange"></span> Expense</div>
+      </div>
+      <div class="bar-chart" id="seasonChart">
+        <div class="bar-item">
+          <div class="bar-stack"><div class="bar-fill green" style="height:70%"></div><div class="bar-fill orange" style="height:40%"></div></div>
+          <span class="bar-label">Apr</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-stack"><div class="bar-fill green" style="height:85%"></div><div class="bar-fill orange" style="height:50%"></div></div>
+          <span class="bar-label">May</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-stack"><div class="bar-fill green" style="height:75%"></div><div class="bar-fill orange" style="height:45%"></div></div>
+          <span class="bar-label">Jun</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-stack"><div class="bar-fill green" style="height:95%"></div><div class="bar-fill orange" style="height:60%"></div></div>
+          <span class="bar-label">Jul</span>
+        </div>
+        <div class="bar-item">
+          <div class="bar-stack"><div class="bar-fill green" style="height:60%"></div><div class="bar-fill orange" style="height:35%"></div></div>
+          <span class="bar-label">Aug</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="/pages/app/home.html" class="nav-item">
+      <span class="nav-item-icon">🏠</span>
+      <span class="nav-item-label">Home</span>
+    </a>
+    <a href="/pages/app/customers.html" class="nav-item">
+      <span class="nav-item-icon">👥</span>
+      <span class="nav-item-label">Customers</span>
+    </a>
+    <a href="/pages/app/work.html" class="nav-item">
+      <span class="nav-item-icon">⏱️</span>
+      <span class="nav-item-label">Work</span>
+    </a>
+    <a href="/pages/app/reports.html" class="nav-item">
+      <span class="nav-item-icon">📊</span>
+      <span class="nav-item-label">Reports</span>
+    </a>
+    <a href="/pages/app/more.html" class="nav-item">
+      <span class="nav-item-icon">⋯</span>
+      <span class="nav-item-label">More</span>
+    </a>
+  </nav>
+
+  <script type="module" src="/js/pages/season-records.js"></script>
+</body>
+</html>

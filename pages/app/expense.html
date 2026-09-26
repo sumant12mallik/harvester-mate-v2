@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Expense - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon" style="background:linear-gradient(135deg,#FF4757,#C62828);">💵</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">Expense</div>
+          <div class="navbar-subtitle" id="seasonLabel">Kharif - 2026</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <!-- Filter tabs -->
+    <div class="tabs-pill" id="categoryTabs">
+      <button class="pill-tab active" data-category="all">All</button>
+      <button class="pill-tab" data-category="diesel">Diesel</button>
+      <button class="pill-tab" data-category="repair">Repair</button>
+      <button class="pill-tab" data-category="parts">Parts</button>
+      <button class="pill-tab" data-category="driver">Driver</button>
+      <button class="pill-tab" data-category="other">Other</button>
+    </div>
+
+    <!-- Add button -->
+    <a href="#" id="addExpenseBtn" class="btn btn-primary btn-full" style="margin-bottom:16px; text-decoration:none;">
+      <span>＋</span> Add Expense
+    </a>
+
+    <!-- Total card -->
+    <div class="card" style="background:linear-gradient(135deg,#121A2E,#16213A); margin-bottom:16px;">
+      <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase; letter-spacing:0.05em;">Total Expense (This Season)</div>
+      <div style="font-size:32px; font-weight:800; color:#FF4757; margin-top:6px; font-family:monospace;" id="totalExpense">₹0</div>
+    </div>
+
+    <!-- Category summary -->
+    <div id="categorySummary" style="margin-bottom:16px;"></div>
+
+    <!-- Expense list -->
+    <div class="home-section-title">Recent Expenses</div>
+    <div id="expenseList"></div>
+
+    <div id="emptyState" style="display:none; text-align:center; padding:40px 20px;">
+      <div style="font-size:48px; opacity:0.3;">💵</div>
+      <p style="color:#7A8BA8; font-size:13px; margin-top:12px;">Koi expense nahi. Upcoming + button dabao</p>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="/pages/app/home.html" class="nav-item">
+      <span class="nav-item-icon">🏠</span>
+      <span class="nav-item-label">Home</span>
+    </a>
+    <a href="/pages/app/customers.html" class="nav-item">
+      <span class="nav-item-icon">👥</span>
+      <span class="nav-item-label">Customers</span>
+    </a>
+    <a href="/pages/app/work.html" class="nav-item">
+      <span class="nav-item-icon">⏱️</span>
+      <span class="nav-item-label">Work</span>
+    </a>
+    <a href="/pages/app/reports.html" class="nav-item">
+      <span class="nav-item-icon">📊</span>
+      <span class="nav-item-label">Reports</span>
+    </a>
+    <a href="/pages/app/more.html" class="nav-item">
+      <span class="nav-item-icon">⋯</span>
+      <span class="nav-item-label">More</span>
+    </a>
+  </nav>
+
+  <script type="module" src="/js/pages/expense.js"></script>
+</body>
+</html>

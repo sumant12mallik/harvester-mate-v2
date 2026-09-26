@@ -1,0 +1,47 @@
+/* ============================================
+   HarvesterMate v2 - Main CSS
+   Master file — saari CSS import karti hai
+   ============================================ */
+
+/* ===== BASE ===== */
+@import url('./base/reset.css');
+@import url('./base/variables.css');
+@import url('./base/typography.css');
+@import url('./base/utilities.css');
+
+/* ===== LAYOUT ===== */
+@import url('./layout/navbar.css');
+@import url('./layout/bottom-nav.css');
+@import url('./layout/sidebar.css');
+@import url('./layout/grid.css');
+
+/* ===== COMPONENTS ===== */
+@import url('./components/buttons.css');
+@import url('./components/inputs.css');
+@import url('./components/cards.css');
+@import url('./components/circular-timer.css');
+@import url('./components/charts.css');
+@import url('./components/tabs.css');
+@import url('./components/chips.css');
+@import url('./components/modals.css');
+@import url('./components/toasts.css');
+@import url('./components/loader.css');
+@import url('./components/dropdowns.css');
+@import url('./components/tables.css');
+
+/* ===== PAGES ===== */
+@import url('./pages/splash.css');
+@import url('./pages/auth.css');
+@import url('./pages/home.css');
+@import url('./pages/customers.css');
+@import url('./pages/drivers.css');
+@import url('./pages/expense.css');
+@import url('./pages/diesel.css');
+@import url('./pages/dealer.css');
+@import url('./pages/season-records.css');
+@import url('./pages/reports.css');
+@import url('./pages/settings.css');
+@import url('./pages/legal.css');
+
+/* ===== ANIMATIONS ===== */
+@import url('./animations.css');

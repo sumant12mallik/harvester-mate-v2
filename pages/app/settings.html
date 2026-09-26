@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Settings - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="/pages/app/more.html" class="navbar-btn" style="text-decoration:none;">←</a>
+      <div class="navbar-brand-text">
+        <div class="navbar-title">Settings</div>
+        <div class="navbar-subtitle">App preferences</div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content" style="padding-bottom:40px;">
+
+    <!-- Owner Card -->
+    <a href="/pages/app/profile.html" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:16px; margin-bottom:16px;">
+      <div class="customer-avatar" style="width:48px; height:48px; font-size:18px;" id="ownerAvatar">O</div>
+      <div style="flex:1;">
+        <div style="font-size:15px; font-weight:700; color:#fff;" id="ownerName">Harvester Mate</div>
+        <div style="font-size:12px; color:#00FF88; font-weight:600;" id="ownerRole">Owner</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <!-- Settings sections -->
+    <div class="home-section-title">⚙️ General</div>
+
+    <a href="#" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">🚜</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Machine / Harvester Details</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Model, Number, Year</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <a href="#" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">💵</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Default Rates</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">2 Wheel & 4 Wheel Rates</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <a href="/pages/app/drivers.html" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">👤</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Driver Settings</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Add / Manage Drivers</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <a href="/pages/app/season-records.html" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">📅</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Season Settings</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Year & Season</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <div class="home-section-title" style="margin-top:20px;">📦 Data & Backup</div>
+
+    <a href="#" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">💾</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Backup / Firebase</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Data Backup & Sync</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <div class="home-section-title" style="margin-top:20px;">👤 Account</div>
+
+    <a href="/pages/app/profile.html" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">👤</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">Profile</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Business / Personal Info</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <a href="/pages/legal/about.html" class="card card-interactive" style="display:flex; gap:12px; align-items:center; padding:14px;">
+      <span style="font-size:22px;">ℹ️</span>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:#fff;">About App</div>
+        <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">Version 1.0</div>
+      </div>
+      <span style="color:#7A8BA8;">→</span>
+    </a>
+
+    <button class="btn btn-full" id="logoutBtn"
+            style="background:rgba(255,71,87,0.15); color:#FF4757; border:1px solid #FF4757; margin-top:24px;">
+      🚪 Logout
+    </button>
+
+    <p style="text-align:center; font-size:11px; color:#4A5568; margin-top:24px;">
+      HarvesterMate v2.0.0 • Made with ❤️ for Indian Farmers
+    </p>
+
+  </div>
+
+  <script type="module">
+    import { auth, db } from '/js/config/firebase-config.js';
+    import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = '/pages/auth/login.html';
+        return;
+      }
+      try {
+        const snap = await getDoc(doc(db, 'users', user.uid));
+        if (snap.exists()) {
+          const data = snap.data();
+          document.getElementById('ownerName').textContent = data.name || 'Harvester Owner';
+          document.getElementById('ownerRole').textContent = (data.role === 'owner' ? 'Owner' : 'User');
+          document.getElementById('ownerAvatar').textContent = (data.name || 'O').charAt(0).toUpperCase();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (!confirm('Logout karna hai?')) return;
+      await signOut(auth);
+      localStorage.clear();
+      window.location.href = '/pages/auth/login.html';
+    });
+  </script>
+</body>
+</html>

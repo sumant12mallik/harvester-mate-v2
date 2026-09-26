@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Home - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon">🚜</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">HARVESTER MATE</div>
+          <div class="navbar-subtitle">Manage • Track • Grow</div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="notifBtn">
+        🔔
+        <span class="navbar-badge" id="notifBadge" style="display:none;"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <!-- SEASON SUMMARY CARD -->
+    <div class="summary-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <div class="summary-season">Current Season Summary</div>
+          <div class="summary-season-value" id="seasonLabel">Kharif - 2026</div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-mini-icon green">👥</div>
+          <div class="stat-mini-info">
+            <div class="stat-mini-label">Customers</div>
+            <div class="stat-mini-value" id="statCustomers">0</div>
+          </div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-icon blue">⏱️</div>
+          <div class="stat-mini-info">
+            <div class="stat-mini-label">Working Hrs</div>
+            <div class="stat-mini-value" id="statHours">0</div>
+          </div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-icon orange">💰</div>
+          <div class="stat-mini-info">
+            <div class="stat-mini-label">Income</div>
+            <div class="stat-mini-value" id="statIncome">₹0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CIRCULAR TIMER -->
+    <div class="timer-hero">
+      <div class="timer-circle-wrap">
+        <svg class="timer-circle-svg" viewBox="0 0 220 220">
+          <defs>
+            <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00FF88"/>
+              <stop offset="100%" stop-color="#00CC6A"/>
+            </linearGradient>
+          </defs>
+          <circle class="timer-circle-track" cx="110" cy="110" r="100"/>
+          <circle class="timer-circle-progress" cx="110" cy="110" r="100"
+                  id="timerCircle" stroke-dasharray="628" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-circle-inner">
+          <div class="timer-circle-icon" id="timerIcon">⏱️</div>
+          <div class="timer-circle-time" id="timerDisplay">00:00:00</div>
+          <div class="timer-circle-label">Total Time</div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="timer-actions">
+        <button class="timer-btn timer-btn-start" id="startBtn">
+          <span class="timer-btn-icon">▶</span> Start
+        </button>
+        <button class="timer-btn timer-btn-pause" id="pauseBtn">
+          <span class="timer-btn-icon">⏸</span> Pause
+        </button>
+        <button class="timer-btn timer-btn-stop" id="stopBtn">
+          <span class="timer-btn-icon">⏹</span> Stop
+        </button>
+      </div>
+
+      <!-- Customer selector -->
+      <div class="customer-selector" id="customerSelector">
+        <span class="customer-selector-icon">👤</span>
+        <span class="customer-selector-text" id="customerSelectorText">Select Customer</span>
+        <span class="customer-selector-arrow">▾</span>
+      </div>
+
+      <!-- Wheel selector -->
+      <div class="wheel-selector">
+        <div class="wheel-card active" id="card2W" data-wheel="2">
+          <div class="wheel-card-icon">🚜</div>
+          <div class="wheel-card-title">2 Wheel</div>
+        </div>
+        <div class="wheel-card" id="card4W" data-wheel="4">
+          <div class="wheel-card-icon">🚜</div>
+          <div class="wheel-card-title">4 Wheel</div>
+        </div>
+      </div>
+
+      <!-- Time display -->
+      <div class="time-display-row">
+        <div class="time-display-box">
+          <div class="time-display-label">2 Wheel Time</div>
+          <div class="time-display-value" id="time2WDisplay">00:00:00</div>
+        </div>
+        <div class="time-display-box">
+          <div class="time-display-label">4 Wheel Time</div>
+          <div class="time-display-value" id="time4WDisplay">00:00:00</div>
+        </div>
+      </div>
+
+      <!-- Rates -->
+      <div class="rate-row">
+        <div class="rate-box">
+          <span class="rate-label">2 Wheel ₹/hr</span>
+          <span class="rate-value" id="rate2WDisplay">₹600</span>
+        </div>
+        <div class="rate-box">
+          <span class="rate-label">4 Wheel ₹/hr</span>
+          <span class="rate-value" id="rate4WDisplay">₹900</span>
+        </div>
+      </div>
+
+      <!-- Total amount -->
+      <div class="total-amount-card">
+        <span class="total-amount-label">Total Amount</span>
+        <span class="total-amount-value" id="totalAmount">₹0</span>
+      </div>
+
+      <!-- Save button -->
+      <button class="btn btn-primary btn-full" id="saveBtn">
+        💾 Save Customer Record
+      </button>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="/pages/app/home.html" class="nav-item active">
+      <span class="nav-item-icon">🏠</span>
+      <span class="nav-item-label">Home</span>
+    </a>
+    <a href="/pages/app/customers.html" class="nav-item">
+      <span class="nav-item-icon">👥</span>
+      <span class="nav-item-label">Customers</span>
+    </a>
+    <a href="/pages/app/work.html" class="nav-item">
+      <span class="nav-item-icon">⏱️</span>
+      <span class="nav-item-label">Work</span>
+    </a>
+    <a href="/pages/app/reports.html" class="nav-item">
+      <span class="nav-item-icon">📊</span>
+      <span class="nav-item-label">Reports</span>
+    </a>
+    <a href="/pages/app/more.html" class="nav-item">
+      <span class="nav-item-icon">⋯</span>
+      <span class="nav-item-label">More</span>
+    </a>
+  </nav>
+
+  <script type="module" src="/js/pages/home.js"></script>
+</body>
+</html>

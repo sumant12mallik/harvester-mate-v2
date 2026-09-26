@@ -1,0 +1,126 @@
+/* ============================================
+   CSS Variables - Colors, Spacing, Typography
+   ============================================ */
+
+:root {
+
+  /* ===== GREEN (Neon) ===== */
+  --green-primary: #00FF88;
+  --green-dark: #00CC6A;
+  --green-light: #66FFB2;
+  --green-glow: rgba(0, 255, 136, 0.5);
+  --green-glow-strong: rgba(0, 255, 136, 0.8);
+  --green-bg: rgba(0, 255, 136, 0.08);
+  --green-bg-strong: rgba(0, 255, 136, 0.15);
+
+  /* ===== BACKGROUNDS ===== */
+  --bg-primary: #0A0F1C;
+  --bg-card: #121A2E;
+  --bg-card-2: #16213A;
+  --bg-elevated: #1A2440;
+  --bg-input: #0F1628;
+  --bg-overlay: rgba(0, 0, 0, 0.75);
+
+  /* ===== TEXT ===== */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0BEC5;
+  --text-muted: #7A8BA8;
+  --text-dim: #4A5568;
+  --text-disabled: #2D3748;
+
+  /* ===== STATUS COLORS ===== */
+  --success: #00FF88;
+  --success-dark: #00CC6A;
+  --warning: #FFA726;
+  --warning-dark: #F57C00;
+  --danger: #FF4757;
+  --danger-dark: #C62828;
+  --info: #4A9EFF;
+  --info-dark: #2979FF;
+  --purple: #9C6FFF;
+  --orange: #FF8A4C;
+  --pink: #FF5C9E;
+
+  /* ===== BORDERS ===== */
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-2: rgba(255, 255, 255, 0.1);
+  --border-green: rgba(0, 255, 136, 0.3);
+
+  /* ===== SPACING ===== */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===== FONT SIZES ===== */
+  --font-xs: 11px;
+  --font-sm: 13px;
+  --font-base: 15px;
+  --font-md: 17px;
+  --font-lg: 20px;
+  --font-xl: 24px;
+  --font-2xl: 30px;
+  --font-3xl: 36px;
+  --font-4xl: 48px;
+
+  /* ===== FONT WEIGHTS ===== */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 24px rgba(0, 255, 136, 0.4);
+  --shadow-glow-strong: 0 0 40px rgba(0, 255, 136, 0.6);
+
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== LAYOUT ===== */
+  --navbar-height: 64px;
+  --bottom-nav-height: 72px;
+  --max-width: 480px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* ===== Z-INDEX ===== */
+  --z-base: 1;
+  --z-sticky: 50;
+  --z-navbar: 100;
+  --z-bottom-nav: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+  --z-loader: 9999;
+}
+
+/* Light theme (future) */
+[data-theme="light"] {
+  --bg-primary: #F5F7FA;
+  --bg-card: #FFFFFF;
+  --bg-card-2: #F8FAFC;
+  --bg-elevated: #F0F4F8;
+  --text-primary: #1A2027;
+  --text-secondary: #5A6B7C;
+  --text-muted: #8896A4;
+  --border-color: rgba(0, 0, 0, 0.08);
+}

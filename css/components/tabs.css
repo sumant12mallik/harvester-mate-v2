@@ -1,0 +1,193 @@
+/* ============================================
+   Tabs
+   ============================================ */
+
+/* ===== SEGMENTED TABS ===== */
+.tabs-segmented {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-input);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-md);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-segmented::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-segment {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  text-align: center;
+  font-family: inherit;
+  min-width: max-content;
+}
+
+.tab-segment.active {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  font-weight: var(--weight-bold);
+  box-shadow: 0 2px 12px rgba(0, 255, 136, 0.3);
+}
+
+/* ===== PILL TABS ===== */
+.tabs-pill {
+  display: flex;
+  gap: 8px;
+  margin-bottom: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.tabs-pill::-webkit-scrollbar {
+  display: none;
+}
+
+.pill-tab {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.pill-tab.active {
+  background: var(--green-primary);
+  color: #0A0F1C;
+  border-color: var(--green-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* ===== FILTER ROW ===== */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 0 var(--space-md) 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: var(--weight-semibold);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.filter-pill.active {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  border-color: var(--green-primary);
+  font-weight: var(--weight-bold);
+  box-shadow: 0 2px 12px rgba(0, 255, 136, 0.3);
+}
+
+/* ===== UNDERLINE TABS ===== */
+.tabs-underline {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--space-md);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-underline::-webkit-scrollbar {
+  display: none;
+}
+
+.underline-tab {
+  padding: 12px 20px;
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+  font-family: inherit;
+}
+
+.underline-tab.active {
+  color: var(--green-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.underline-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green-primary);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 8px var(--green-glow);
+}
+
+/* ===== TOGGLE CHIP (Role selector) ===== */
+.role-toggle {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: var(--bg-input);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-md);
+}
+
+.role-option {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-muted);
+  background: transparent;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.role-option.active {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  font-weight: var(--weight-bold);
+}

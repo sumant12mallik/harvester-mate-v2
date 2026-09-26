@@ -1,0 +1,109 @@
+/* ============================================
+   Reports Page
+   ============================================ */
+
+/* ===== SUMMARY GRID ===== */
+.report-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.report-stat-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.report-stat-card.green {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.report-stat-card.red {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 71, 87, 0.05));
+  border-color: rgba(255, 71, 87, 0.3);
+}
+
+.report-stat-card.blue {
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(74, 158, 255, 0.05));
+  border-color: rgba(74, 158, 255, 0.3);
+}
+
+.report-stat-card.orange {
+  background: linear-gradient(135deg, rgba(255, 167, 38, 0.15), rgba(255, 167, 38, 0.05));
+  border-color: rgba(255, 167, 38, 0.3);
+}
+
+.report-stat-card.purple {
+  background: linear-gradient(135deg, rgba(156, 111, 255, 0.15), rgba(156, 111, 255, 0.05));
+  border-color: rgba(156, 111, 255, 0.3);
+}
+
+.report-stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.report-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--weight-semibold);
+}
+
+.report-stat-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: 'SF Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+}
+
+.report-stat-value.green { color: var(--green-primary); }
+.report-stat-value.red { color: var(--danger); }
+.report-stat-value.blue { color: var(--info); }
+.report-stat-value.orange { color: var(--warning); }
+.report-stat-value.purple { color: var(--purple); }
+
+/* ===== MONTH NAV ===== */
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.month-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ===== BREAKDOWN LIST ===== */
+.report-breakdown {
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.report-breakdown-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}

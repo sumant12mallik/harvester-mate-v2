@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Add Customer - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="/pages/app/customers.html" class="navbar-btn" style="text-decoration:none;">←</a>
+      <div class="navbar-brand-text">
+        <div class="navbar-title">Add Customer</div>
+        <div class="navbar-subtitle" id="seasonLabel">Kharif - 2026</div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content" style="padding-bottom:100px;">
+
+    <div id="formError" class="auth-error"></div>
+
+    <form id="customerForm">
+
+      <div class="home-section-title">👤 Customer Details</div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="name" name="name" class="input-field has-icon"
+                 placeholder="Customer Name" maxlength="50" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">📍</span>
+          <input type="text" id="village" name="village" class="input-field has-icon"
+                 placeholder="Village" maxlength="60" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="mobile" name="mobile" class="input-field has-icon"
+                 placeholder="Mobile Number" maxlength="10" inputmode="numeric" required>
+        </div>
+      </div>
+
+      <div class="home-section-title" style="margin-top:20px;">⏱️ Work Details</div>
+
+      <div class="time-display-row">
+        <div class="input-group">
+          <label class="input-label">2 Wheel Time (min)</label>
+          <input type="number" id="time2W" class="input-field" placeholder="0" min="0">
+        </div>
+        <div class="input-group">
+          <label class="input-label">4 Wheel Time (min)</label>
+          <input type="number" id="time4W" class="input-field" placeholder="0" min="0">
+        </div>
+      </div>
+
+      <div class="home-section-title" style="margin-top:20px;">💰 Rate (₹/hour)</div>
+
+      <div class="rate-inputs">
+        <div class="input-group">
+          <label class="input-label">2 Wheel Rate</label>
+          <input type="number" id="rate2W" class="input-field" value="600" min="0" step="50">
+        </div>
+        <div class="input-group">
+          <label class="input-label">4 Wheel Rate</label>
+          <input type="number" id="rate4W" class="input-field" value="900" min="0" step="50">
+        </div>
+      </div>
+
+      <div class="total-amount-card" style="margin-top:12px;">
+        <div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase; letter-spacing:0.05em;">Total Amount</div>
+          <div style="font-size:24px; font-weight:800; color:#00FF88; margin-top:4px; font-family:'SF Mono',monospace;" id="totalAmount">₹0</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:11px; color:#7A8BA8;">Total Time</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-top:4px;" id="totalTime">0m</div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div style="position:fixed; bottom:0; left:0; right:0; padding:16px; background:linear-gradient(180deg, transparent, #0A0F1C 30%); z-index:50;">
+    <button type="submit" form="customerForm" id="saveBtn" class="btn btn-primary btn-full">
+      💾 Save Customer
+    </button>
+  </div>
+
+  <script type="module" src="/js/pages/add-customer.js"></script>
+</body>
+</html>

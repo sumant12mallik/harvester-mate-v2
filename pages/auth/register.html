@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Register - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-container">
+
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="/assets/images/logo.png" alt="HarvesterMate"
+             onerror="this.parentElement.innerHTML='<div style=\'font-size:60px\'>🚜</div>'">
+      </div>
+      <h1 class="auth-title">Create Account</h1>
+      <p class="auth-subtitle">Join HarvesterMate today</p>
+    </div>
+
+    <div class="role-toggle" id="roleToggle">
+      <button type="button" class="role-option active" data-role="user">
+        👤 User
+      </button>
+      <button type="button" class="role-option" data-role="owner">
+        🚜 Owner
+      </button>
+    </div>
+
+    <div id="registerError" class="auth-error"></div>
+
+    <form id="registerForm" class="auth-form" autocomplete="on">
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="name" name="name" class="input-field has-icon"
+                 placeholder="Full Name" autocomplete="name" maxlength="50" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="mobile" name="mobile" class="input-field has-icon"
+                 placeholder="Mobile Number" maxlength="10" inputmode="numeric"
+                 autocomplete="tel" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">📍</span>
+          <input type="text" id="village" name="village" class="input-field has-icon"
+                 placeholder="Village" maxlength="60" autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" name="password" class="input-field has-icon"
+                 placeholder="Password (min 6 chars)" autocomplete="new-password"
+                 minlength="6" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="confirmPassword" name="confirmPassword"
+                 class="input-field has-icon" placeholder="Confirm Password"
+                 autocomplete="new-password" minlength="6" required>
+        </div>
+      </div>
+
+      <div id="ownerNote" class="auth-info" style="display:none; margin-top:0;">
+        ⚠️ Harvester Owner registration ke liye admin approval zaroori hai.
+      </div>
+
+      <button type="submit" id="registerBtn" class="btn btn-primary btn-full auth-submit">
+        Register
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/pages/auth/login.html">Login</a>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/pages/register.js"></script>
+</body>
+</html>

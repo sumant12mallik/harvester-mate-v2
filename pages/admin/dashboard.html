@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Admin Dashboard - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon">🛡️</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">Admin Panel</div>
+          <div class="navbar-subtitle">HarvesterMate</div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="logoutBtn">🚪</button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <h2 style="font-size:22px; margin-bottom:16px;">Welcome, Admin 👋</h2>
+
+    <div class="home-section">
+      <div class="home-section-title">📊 Overview</div>
+      <div class="grid-2" style="gap:12px;">
+        <div class="card" style="text-align:center; padding:20px 12px;">
+          <div style="font-size:32px; margin-bottom:8px;">🚜</div>
+          <div style="font-size:24px; font-weight:800; color:#00FF88;" id="statOwners">0</div>
+          <div style="font-size:11px; color:#7A8BA8; margin-top:4px;">Total Owners</div>
+        </div>
+        <div class="card" style="text-align:center; padding:20px 12px;">
+          <div style="font-size:32px; margin-bottom:8px;">👤</div>
+          <div style="font-size:24px; font-weight:800; color:#4A9EFF;" id="statUsers">0</div>
+          <div style="font-size:11px; color:#7A8BA8; margin-top:4px;">Total Users</div>
+        </div>
+        <div class="card" style="text-align:center; padding:20px 12px;">
+          <div style="font-size:32px; margin-bottom:8px;">⏳</div>
+          <div style="font-size:24px; font-weight:800; color:#FFA726;" id="statPending">0</div>
+          <div style="font-size:11px; color:#7A8BA8; margin-top:4px;">Pending</div>
+        </div>
+        <div class="card" style="text-align:center; padding:20px 12px;">
+          <div style="font-size:32px; margin-bottom:8px;">📋</div>
+          <div style="font-size:24px; font-weight:800; color:#9C6FFF;" id="statRequests">0</div>
+          <div style="font-size:11px; color:#7A8BA8; margin-top:4px;">Requests</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-section">
+      <div class="home-section-title">⚡ Quick Actions</div>
+      <div class="grid-2" style="gap:12px;">
+        <a href="/pages/admin/requests.html" class="module-card">
+          <div class="module-icon" style="background:rgba(255,167,38,0.15); color:#FFA726;">📋</div>
+          <span class="module-label">Owner Requests</span>
+        </a>
+        <a href="/pages/admin/users.html" class="module-card">
+          <div class="module-icon" style="background:rgba(74,158,255,0.15); color:#4A9EFF;">👥</div>
+          <span class="module-label">All Users</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { auth, db } from '/js/config/firebase-config.js';
+    import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    // Check auth
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = '/pages/auth/admin-login.html';
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (!confirm('Logout karna hai?')) return;
+      await signOut(auth);
+      localStorage.removeItem('hm_user');
+      window.location.href = '/pages/auth/admin-login.html';
+    });
+
+    // Load stats
+    (async () => {
+      try {
+        const usersSnap = await getDocs(collection(db, 'users'));
+        const users = usersSnap.docs.map(d => d.data());
+        document.getElementById('statOwners').textContent = users.filter(u => u.role === 'owner').length;
+        document.getElementById('statUsers').textContent = users.filter(u => u.role === 'user').length;
+
+        const reqSnap = await getDocs(collection(db, 'owner_requests'));
+        const reqs = reqSnap.docs.map(d => d.data());
+        document.getElementById('statPending').textContent = reqs.filter(r => r.status === 'pending').length;
+        document.getElementById('statRequests').textContent = reqs.length;
+      } catch (e) {
+        console.error('Stats load failed:', e);
+      }
+    })();
+  </script>
+</body>
+</html>

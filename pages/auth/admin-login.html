@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Admin Login - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-container">
+
+    <div class="auth-header">
+      <div class="auth-logo">
+        <div style="font-size:60px;">🛡️</div>
+      </div>
+      <h1 class="auth-title">Admin Login</h1>
+      <p class="auth-subtitle">HarvesterMate Control Panel</p>
+    </div>
+
+    <div id="adminError" class="auth-error"></div>
+
+    <form id="adminLoginForm" class="auth-form" autocomplete="on">
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="mobile" name="mobile" class="input-field has-icon"
+                 placeholder="Admin Mobile Number" maxlength="10" inputmode="numeric" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" name="password" class="input-field has-icon"
+                 placeholder="Admin Password" required>
+        </div>
+      </div>
+
+      <button type="submit" id="adminLoginBtn" class="btn btn-primary btn-full auth-submit">
+        🛡️ ADMIN LOGIN
+      </button>
+
+    </form>
+
+    <div class="auth-info" style="margin-top:24px;">
+      ⚠️ Ye page sirf admin ke liye hai. Unauthorized access prohibited hai.
+    </div>
+
+    <div class="auth-footer">
+      Regular user?
+      <a href="/pages/auth/login.html">Login here</a>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { auth, db } from '/js/config/firebase-config.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const form = document.getElementById('adminLoginForm');
+    const errorEl = document.getElementById('adminError');
+    const btn = document.getElementById('adminLoginBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.remove('active');
+
+      const mobile = document.getElementById('mobile').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (mobile.length !== 10) {
+        errorEl.textContent = 'Sahi mobile number daalo';
+        errorEl.classList.add('active');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+
+      try {
+        const email = `${mobile}@harvestermate.app`;
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const userDoc = await getDoc(doc(db, 'users', cred.user.uid));
+
+        if (!userDoc.exists() || userDoc.data().role !== 'admin') {
+          await auth.signOut();
+          errorEl.textContent = 'Aap admin nahi ho. Ye page authorized users ke liye hai.';
+          errorEl.classList.add('active');
+          btn.disabled = false;
+          btn.textContent = '🛡️ ADMIN LOGIN';
+          return;
+        }
+
+        localStorage.setItem('hm_user', JSON.stringify({ uid: cred.user.uid, role: 'admin' }));
+        window.location.href = '/pages/admin/dashboard.html';
+      } catch (err) {
+        errorEl.textContent = 'Login fail: ' + err.message;
+        errorEl.classList.add('active');
+        btn.disabled = false;
+        btn.textContent = '🛡️ ADMIN LOGIN';
+      }
+    });
+  </script>
+</body>
+</html>

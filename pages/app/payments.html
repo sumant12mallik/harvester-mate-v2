@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Payments - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon" style="background:linear-gradient(135deg,#00FF88,#00CC6A);">💳</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">Payments</div>
+          <div class="navbar-subtitle" id="seasonLabel">Kharif - 2026</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <!-- Summary Cards -->
+    <div class="grid-2" style="gap:12px; margin-bottom:16px;">
+      <div class="card" style="padding:16px; background:linear-gradient(135deg,rgba(0,255,136,0.15),rgba(0,255,136,0.05)); border-color:rgba(0,255,136,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(0,255,136,0.2);
+                      color:#00FF88; display:flex; align-items:center; justify-content:center; font-size:16px;">💰</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Received</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#00FF88; font-family:monospace;" id="totalReceived">₹0</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg,rgba(255,71,87,0.15),rgba(255,71,87,0.05)); border-color:rgba(255,71,87,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:rgba(255,71,87,0.2);
+                      color:#FF4757; display:flex; align-items:center; justify-content:center; font-size:16px;">⚠️</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Pending Due</div>
+        </div>
+        <div style="font-size:22px; font-weight:800; color:#FF4757; font-family:monospace;" id="totalDue">₹0</div>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="tabs-pill" id="filterTabs">
+      <button class="pill-tab active" data-filter="all">All</button>
+      <button class="pill-tab" data-filter="cash">Cash</button>
+      <button class="pill-tab" data-filter="online">Online</button>
+      <button class="pill-tab" data-filter="upi">UPI</button>
+      <button class="pill-tab" data-filter="cheque">Cheque</button>
+    </div>
+
+    <!-- Payments List -->
+    <div class="home-section-title">Payment History</div>
+    <div id="paymentsList"></div>
+
+    <div id="emptyState" style="display:none; text-align:center; padding:60px 20px;">
+      <div style="font-size:60px; opacity:0.3;">💳</div>
+      <h3 style="color:#B0BEC5; margin-top:16px; font-size:16px;">Koi payment nahi</h3>
+      <p style="color:#7A8BA8; font-size:13px; margin-top:8px;">Payment records yahan dikhenge</p>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="/pages/app/home.html" class="nav-item">
+      <span class="nav-item-icon">🏠</span>
+      <span class="nav-item-label">Home</span>
+    </a>
+    <a href="/pages/app/customers.html" class="nav-item">
+      <span class="nav-item-icon">👥</span>
+      <span class="nav-item-label">Customers</span>
+    </a>
+    <a href="/pages/app/work.html" class="nav-item">
+      <span class="nav-item-icon">⏱️</span>
+      <span class="nav-item-label">Work</span>
+    </a>
+    <a href="/pages/app/reports.html" class="nav-item">
+      <span class="nav-item-icon">📊</span>
+      <span class="nav-item-label">Reports</span>
+    </a>
+    <a href="/pages/app/more.html" class="nav-item">
+      <span class="nav-item-icon">⋯</span>
+      <span class="nav-item-label">More</span>
+    </a>
+  </nav>
+
+  <script type="module">
+    import { auth, db } from '/js/config/firebase-config.js';
+    import { collection, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    let allPayments = [];
+    let currentFilter = 'all';
+
+    function escape(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function formatAmount(n) {
+      return `₹${Number(n || 0).toLocaleString('en-IN')}`;
+    }
+
+    function formatDate(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    async function loadPayments() {
+      try {
+        const ownerId = auth.currentUser?.uid;
+        if (!ownerId) return;
+
+        const season = localStorage.getItem('hm_selected_season') || 'Kharif';
+        const year = localStorage.getItem('hm_selected_year') || new Date().getFullYear();
+        const seasonId = `${season}_${year}`.replace(/\s+/g, '');
+
+        document.getElementById('seasonLabel').textContent = `${season} - ${year}`;
+
+        // Load customers -> payments
+        const customersSnap = await getDocs(
+          collection(db, `harvesters/${ownerId}/seasons/${seasonId}/customers`)
+        );
+
+        allPayments = [];
+        for (const custDoc of customersSnap.docs) {
+          const custData = custDoc.data();
+          const paySnap = await getDocs(
+            collection(db, `harvesters/${ownerId}/seasons/${seasonId}/customers/${custDoc.id}/payments`)
+          );
+          paySnap.docs.forEach(p => {
+            allPayments.push({
+              id: p.id,
+              customerId: custDoc.id,
+              customerName: custData.name || 'Unknown',
+              ...p.data()
+            });
+          });
+        }
+
+        allPayments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        render();
+      } catch (e) {
+        console.error('Load failed:', e);
+      }
+    }
+
+    function render() {
+      const list = currentFilter === 'all'
+        ? allPayments
+        : allPayments.filter(p => (p.mode || 'cash') === currentFilter);
+
+      const container = document.getElementById('paymentsList');
+      const empty = document.getElementById('emptyState');
+
+      // Update totals
+      const received = allPayments.reduce((s, p) => s + (p.amount || 0), 0);
+      document.getElementById('totalReceived').textContent = formatAmount(received);
+      document.getElementById('totalDue').textContent = formatAmount(0);
+
+      if (!list.length) {
+        container.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      const modeIcons = { cash: '💵', upi: '📱', online: '💳', cheque: '🏦' };
+      const modeColors = { cash: '#00FF88', upi: '#4A9EFF', online: '#9C6FFF', cheque: '#FFA726' };
+
+      container.innerHTML = list.map(p => {
+        const mode = p.mode || 'cash';
+        const color = modeColors[mode] || '#00FF88';
+        return `
+          <div class="card" style="padding:14px; display:flex; gap:12px; align-items:center;">
+            <div style="width:40px; height:40px; border-radius:12px;
+                        background:${color}22; color:${color};
+                        display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">
+              ${modeIcons[mode] || '💰'}
+            </div>
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:14px; font-weight:600; color:#fff;">${escape(p.customerName)}</div>
+              <div style="font-size:11px; color:#7A8BA8; margin-top:2px;">
+                ${formatDate(p.timestamp || Date.now())} • ${mode.toUpperCase()}
+              </div>
+            </div>
+            <div style="font-size:15px; font-weight:700; color:#00FF88; font-family:monospace;">
+              ${formatAmount(p.amount)}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.querySelectorAll('#filterTabs .pill-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#filterTabs .pill-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        render();
+      });
+    });
+
+    loadPayments();
+  </script>
+</body>
+</html>

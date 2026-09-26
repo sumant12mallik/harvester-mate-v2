@@ -1,0 +1,6 @@
+# SPA fallback
+/*    /index.html   200
+
+# Clean URLs
+/pages/auth/login       /pages/auth/login.html       200
+/pages/auth/register    /pages/auth/register.html     200

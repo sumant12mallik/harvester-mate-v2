@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Login - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="auth-body">
+
+  <div class="auth-container">
+
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="/assets/images/logo.png" alt="HarvesterMate"
+             onerror="this.parentElement.innerHTML='<div style=\'font-size:60px\'>🚜</div>'">
+      </div>
+      <h1 class="auth-title">HarvesterMate</h1>
+      <p class="auth-subtitle">Identify yourself with ID</p>
+    </div>
+
+    <div id="loginError" class="auth-error"></div>
+
+    <form id="loginForm" class="auth-form" autocomplete="on">
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="tel" id="mobile" name="mobile" class="input-field has-icon"
+                 placeholder="Mobile Number" maxlength="10" inputmode="numeric"
+                 autocomplete="tel" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" name="password" class="input-field has-icon"
+                 placeholder="Password" autocomplete="current-password" required>
+        </div>
+      </div>
+
+      <div style="text-align:right; margin-top:-8px;">
+        <a href="/pages/auth/forgot-password.html"
+           style="font-size:13px; color:#00FF88; font-weight:500;">
+          Forgot Password?
+        </a>
+      </div>
+
+      <button type="submit" id="loginBtn" class="btn btn-primary btn-full auth-submit">
+        SIGN IN
+      </button>
+
+    </form>
+
+    <div class="auth-info">
+      💡 A powerful app verifies your data and opens your personalized portal!
+    </div>
+
+    <div class="auth-footer">
+      New here?
+      <a href="/pages/auth/register.html">Register Now</a>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/pages/login.js"></script>
+</body>
+</html>

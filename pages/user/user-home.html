@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Home - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon">🌾</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title" id="welcomeName">Hello</div>
+          <div class="navbar-subtitle">HarvesterMate</div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="logoutBtn">🚪</button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <!-- Welcome Card -->
+    <div class="card" style="background:linear-gradient(135deg, #00FF88, #00CC6A); color:#0A0F1C; padding:20px; margin-bottom:16px;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; opacity:0.7;">WELCOME</div>
+      <div style="font-size:22px; font-weight:800; margin-top:4px;" id="userName">User</div>
+      <div style="font-size:13px; margin-top:6px; opacity:0.8;">
+        HarvesterMate me aapka swagat hai 🌾
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="home-section">
+      <div class="home-section-title">Quick Actions</div>
+      <div class="grid-2" style="gap:12px;">
+        <div class="module-card">
+          <div class="module-icon">📅</div>
+          <span class="module-label">My Bookings</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon blue">🚜</div>
+          <span class="module-label">Find Harvester</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon orange">💳</div>
+          <span class="module-label">Make Payment</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon purple">👤</div>
+          <span class="module-label">My Profile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="auth-info" style="margin-top:20px;">
+      💡 Harvester owner se contact karo aur apna kaam karwao. Jab owner invoice bheje, online payment kar sakte ho.
+    </div>
+
+    <!-- Links -->
+    <div class="home-section" style="margin-top:24px;">
+      <div class="home-section-title">Information</div>
+      <a href="/pages/legal/privacy-policy.html" class="card card-interactive" style="display:flex; justify-content:space-between;">
+        <span>🔒 Privacy Policy</span>
+        <span>→</span>
+      </a>
+      <a href="/pages/legal/terms-conditions.html" class="card card-interactive" style="display:flex; justify-content:space-between;">
+        <span>📜 Terms & Conditions</span>
+        <span>→</span>
+      </a>
+      <a href="/pages/legal/contact.html" class="card card-interactive" style="display:flex; justify-content:space-between;">
+        <span>📞 Contact Us</span>
+        <span>→</span>
+      </a>
+      <a href="/pages/legal/faq.html" class="card card-interactive" style="display:flex; justify-content:space-between;">
+        <span>❓ FAQ</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <button class="btn btn-full" id="logoutBtn2"
+            style="background:rgba(255,71,87,0.15); color:#FF4757;
+            border:1px solid #FF4757; margin-top:24px;">
+      🚪 Logout
+    </button>
+
+  </div>
+
+  <script type="module">
+    import { auth } from '/js/config/firebase-config.js';
+    import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = '/pages/auth/login.html';
+        return;
+      }
+      const data = JSON.parse(localStorage.getItem('hm_user_data') || '{}');
+      if (data.name) {
+        document.getElementById('welcomeName').textContent = `Hello, ${data.name.split(' ')[0]}`;
+        document.getElementById('userName').textContent = data.name;
+      }
+    });
+
+    async function doLogout() {
+      if (!confirm('Logout karna hai?')) return;
+      await signOut(auth);
+      localStorage.removeItem('hm_user');
+      localStorage.removeItem('hm_user_data');
+      window.location.href = '/pages/auth/login.html';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', doLogout);
+    document.getElementById('logoutBtn2').addEventListener('click', doLogout);
+  </script>
+</body>
+</html>

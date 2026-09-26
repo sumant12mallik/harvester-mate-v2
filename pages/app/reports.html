@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Reports - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-brand">
+        <div class="navbar-brand-icon" style="background:linear-gradient(135deg,#00FF88,#00CC6A);">📊</div>
+        <div class="navbar-brand-text">
+          <div class="navbar-title">Reports</div>
+          <div class="navbar-subtitle">Analytics & insights</div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="exportBtn">📥</button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <div class="tabs-segmented" id="periodTabs">
+      <button class="tab-segment" data-period="daily">Daily</button>
+      <button class="tab-segment" data-period="weekly">Weekly</button>
+      <button class="tab-segment active" data-period="monthly">Monthly</button>
+      <button class="tab-segment" data-period="season">Season</button>
+      <button class="tab-segment" data-period="yearly">Yearly</button>
+    </div>
+
+    <!-- Month navigation -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:0 4px;">
+      <button class="navbar-btn" id="prevMonth">←</button>
+      <div style="font-size:15px; font-weight:700; color:#fff;" id="monthLabel">April 2026</div>
+      <button class="navbar-btn" id="nextMonth">→</button>
+    </div>
+
+    <!-- Summary grid -->
+    <div class="grid-2" style="gap:12px; margin-bottom:16px;">
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,255,136,0.05)); border-color:rgba(0,255,136,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(0,255,136,0.2);
+                      color:#00FF88; display:flex; align-items:center; justify-content:center; font-size:18px;">💰</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Income</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#00FF88; font-family:monospace;" id="reportIncome">₹0</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(255,71,87,0.15), rgba(255,71,87,0.05)); border-color:rgba(255,71,87,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(255,71,87,0.2);
+                      color:#FF4757; display:flex; align-items:center; justify-content:center; font-size:18px;">💵</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Expense</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#FF4757; font-family:monospace;" id="reportExpense">₹0</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(156,111,255,0.15), rgba(156,111,255,0.05)); border-color:rgba(156,111,255,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(156,111,255,0.2);
+                      color:#9C6FFF; display:flex; align-items:center; justify-content:center; font-size:18px;">📈</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Profit</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#9C6FFF; font-family:monospace;" id="reportProfit">₹0</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(74,158,255,0.15), rgba(74,158,255,0.05)); border-color:rgba(74,158,255,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(74,158,255,0.2);
+                      color:#4A9EFF; display:flex; align-items:center; justify-content:center; font-size:18px;">⏱️</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Hours</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#4A9EFF; font-family:monospace;" id="reportHours">0</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(255,167,38,0.15), rgba(255,167,38,0.05)); border-color:rgba(255,167,38,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(255,167,38,0.2);
+                      color:#FFA726; display:flex; align-items:center; justify-content:center; font-size:18px;">⛽</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Diesel</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#FFA726; font-family:monospace;" id="reportDiesel">0 L</div>
+      </div>
+      <div class="card" style="padding:16px; background:linear-gradient(135deg, rgba(255,92,158,0.15), rgba(255,92,158,0.05)); border-color:rgba(255,92,158,0.3);">
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:rgba(255,92,158,0.2);
+                      color:#FF5C9E; display:flex; align-items:center; justify-content:center; font-size:18px;">👥</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase;">Customers</div>
+        </div>
+        <div style="font-size:20px; font-weight:800; color:#FF5C9E; font-family:monospace;" id="reportCustomers">0</div>
+      </div>
+    </div>
+
+    <!-- Monthly Overview Chart -->
+    <div class="card" style="padding:16px; margin-bottom:16px;">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:12px;">Monthly Overview</div>
+      <div class="chart-legend" style="margin-bottom:12px; justify-content:flex-start;">
+        <div class="legend-item"><span class="legend-dot green"></span> Income</div>
+        <div class="legend-item"><span class="legend-dot orange"></span> Expense</div>
+      </div>
+      <div class="bar-chart" id="monthlyChart" style="height:140px;">
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:60%"></div><div class="bar-fill orange" style="height:35%"></div></div><span class="bar-label">1</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:75%"></div><div class="bar-fill orange" style="height:45%"></div></div><span class="bar-label">5</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:55%"></div><div class="bar-fill orange" style="height:30%"></div></div><span class="bar-label">10</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:85%"></div><div class="bar-fill orange" style="height:50%"></div></div><span class="bar-label">15</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:70%"></div><div class="bar-fill orange" style="height:40%"></div></div><span class="bar-label">20</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:90%"></div><div class="bar-fill orange" style="height:55%"></div></div><span class="bar-label">25</span></div>
+        <div class="bar-item"><div class="bar-stack"><div class="bar-fill green" style="height:65%"></div><div class="bar-fill orange" style="height:38%"></div></div><span class="bar-label">30</span></div>
+      </div>
+    </div>
+
+    <!-- Expense Breakdown -->
+    <div class="card" style="padding:16px;">
+      <div style="font-size:14px; font-weight:700; color:#fff; margin-bottom:16px;">Expense Breakdown</div>
+      <div id="breakdownList"></div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="/pages/app/home.html" class="nav-item">
+      <span class="nav-item-icon">🏠</span>
+      <span class="nav-item-label">Home</span>
+    </a>
+    <a href="/pages/app/customers.html" class="nav-item">
+      <span class="nav-item-icon">👥</span>
+      <span class="nav-item-label">Customers</span>
+    </a>
+    <a href="/pages/app/work.html" class="nav-item">
+      <span class="nav-item-icon">⏱️</span>
+      <span class="nav-item-label">Work</span>
+    </a>
+    <a href="/pages/app/reports.html" class="nav-item active">
+      <span class="nav-item-icon">📊</span>
+      <span class="nav-item-label">Reports</span>
+    </a>
+    <a href="/pages/app/more.html" class="nav-item">
+      <span class="nav-item-icon">⋯</span>
+      <span class="nav-item-label">More</span>
+    </a>
+  </nav>
+
+  <script type="module" src="/js/pages/reports.js"></script>
+</body>
+</html>

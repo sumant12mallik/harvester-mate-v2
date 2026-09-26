@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Customer Detail - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <button class="navbar-btn" onclick="history.back()">←</button>
+      <div class="navbar-brand-text">
+        <div class="navbar-title" id="navTitle">Customer Detail</div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="editBtn">✏️</button>
+      <button class="navbar-btn" id="deleteBtn">🗑️</button>
+    </div>
+  </nav>
+
+  <div class="home-content" style="padding-bottom:100px;">
+
+    <!-- Header -->
+    <div style="text-align:center; padding:16px 0 24px;">
+      <div class="customer-avatar" id="avatar" style="width:80px; height:80px; font-size:32px; margin:0 auto 12px;"></div>
+      <h2 id="custName" style="font-size:22px; font-weight:800; color:#fff;">Loading...</h2>
+      <p id="custVillage" style="font-size:13px; color:#7A8BA8; margin-top:4px;">—</p>
+      <p id="custMobile" style="font-size:13px; color:#7A8BA8; margin-top:2px;">📞 —</p>
+    </div>
+
+    <!-- Stats row -->
+    <div class="stats-row" style="margin-bottom:16px;">
+      <div class="card" style="text-align:center; padding:12px;">
+        <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">2W Time</div>
+        <div style="font-size:15px; font-weight:700; color:#fff; margin-top:4px; font-family:monospace;" id="stat2W">—</div>
+      </div>
+      <div class="card" style="text-align:center; padding:12px;">
+        <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">4W Time</div>
+        <div style="font-size:15px; font-weight:700; color:#fff; margin-top:4px; font-family:monospace;" id="stat4W">—</div>
+      </div>
+      <div class="card" style="text-align:center; padding:12px;">
+        <div style="font-size:10px; color:#7A8BA8; text-transform:uppercase;">Rates</div>
+        <div style="font-size:12px; font-weight:700; color:#fff; margin-top:4px; font-family:monospace;" id="statRates">—</div>
+      </div>
+    </div>
+
+    <!-- Summary card -->
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <span style="color:#7A8BA8; font-size:13px;">Total Time</span>
+        <span style="color:#fff; font-weight:600; font-size:14px;" id="sumTotalTime">—</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <span style="color:#7A8BA8; font-size:13px;">Total Amount</span>
+        <span style="color:#00FF88; font-weight:700; font-size:14px;" id="sumTotalAmount">—</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <span style="color:#7A8BA8; font-size:13px;">Paid Amount</span>
+        <span style="color:#fff; font-weight:600; font-size:14px;" id="sumPaid">—</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:8px 0;">
+        <span style="color:#7A8BA8; font-size:13px;">Due Amount</span>
+        <span style="color:#FF4757; font-weight:700; font-size:14px;" id="sumDue">—</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+      <button class="btn btn-secondary" id="whatsappBtn">📱 Message</button>
+      <button class="btn btn-primary" id="paymentBtn">💰 Payment</button>
+    </div>
+
+    <!-- Payment history -->
+    <div class="home-section-title">💰 Payment History</div>
+    <div id="paymentHistory">
+      <p style="text-align:center; color:#7A8BA8; padding:20px; font-size:13px;">Loading...</p>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/pages/customer-detail.js"></script>
+</body>
+</html>

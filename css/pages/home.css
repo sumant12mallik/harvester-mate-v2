@@ -1,0 +1,109 @@
+/* ============================================
+   Home Page (Main app)
+   ============================================ */
+
+.home-body {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  padding-bottom: calc(var(--bottom-nav-height) + 16px);
+}
+
+.home-content {
+  padding: 0 var(--space-md);
+  padding-top: calc(var(--navbar-height) + var(--space-md));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-lg));
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.home-section {
+  margin-bottom: var(--space-md);
+}
+
+.home-section-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: var(--weight-bold);
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+/* ===== COMPACT SUMMARY ===== */
+.summary-compact {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-2));
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--space-md);
+}
+
+.summary-compact-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.summary-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-count {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--green-primary);
+  font-family: 'SF Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-season-tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-primary);
+  margin-top: 2px;
+}
+
+/* ===== GRID HELPERS ===== */
+.grid-2-tight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.grid-3-tight {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* ===== GENERIC SECTION ===== */
+.section-box {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--space-md);
+}
+
+.section-box-title {
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.section-box-title a {
+  font-size: 12px;
+  color: var(--green-primary);
+  font-weight: var(--weight-semibold);
+}

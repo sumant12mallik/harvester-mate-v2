@@ -1,0 +1,145 @@
+/* ============================================
+   Responsive Grid System
+   ============================================ */
+
+.grid-container {
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+/* ===== FIXED COLUMNS ===== */
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* ===== AUTO-FIT GRIDS ===== */
+.grid-auto-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-sm);
+}
+
+.grid-auto-md {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-md);
+}
+
+.grid-auto-lg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+/* ===== MODULE GRID (Dashboard icons) ===== */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+}
+
+.module-grid-item {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 90px;
+  text-decoration: none;
+}
+
+.module-grid-item:active {
+  transform: scale(0.95);
+  background: var(--bg-elevated);
+}
+
+.module-grid-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.module-grid-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ===== STAT GRID (2 columns) ===== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+/* ===== FORM GRID ===== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.form-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* ===== HORIZONTAL SCROLL ===== */
+.h-scroll {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: var(--space-sm);
+  margin: 0 calc(-1 * var(--space-md));
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.h-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.h-scroll-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  min-width: 140px;
+}
+
+/* ===== DASHBOARD GRIDS ===== */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 480px) {
+  .grid-cols-sm-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .module-grid { grid-template-columns: repeat(6, 1fr); }
+  .dashboard-stats-grid { grid-template-columns: repeat(4, 1fr); }
+}

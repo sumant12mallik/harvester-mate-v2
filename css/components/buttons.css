@@ -1,0 +1,190 @@
+/* ============================================
+   Buttons
+   ============================================ */
+
+/* ===== BASE BUTTON ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: var(--weight-semibold);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+  min-height: 48px;
+  font-family: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== PRIMARY (Green Gradient) ===== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+  font-weight: var(--weight-bold);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 28px rgba(0, 255, 136, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+  box-shadow: 0 2px 10px rgba(0, 255, 136, 0.6);
+}
+
+/* ===== SECONDARY (Outline Green) ===== */
+.btn-secondary {
+  background: transparent;
+  color: var(--green-primary);
+  border: 1.5px solid var(--green-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--green-bg);
+}
+
+/* ===== GHOST (Card BG) ===== */
+.btn-ghost {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--bg-elevated);
+}
+
+/* ===== DANGER ===== */
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(255, 71, 87, 0.3);
+}
+
+/* ===== SUCCESS ===== */
+.btn-success {
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+}
+
+/* ===== WARNING ===== */
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning), var(--warning-dark));
+  color: #0A0F1C;
+}
+
+/* ===== SIZES ===== */
+.btn-sm {
+  padding: 8px 16px;
+  font-size: var(--font-sm);
+  min-height: 36px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 18px 32px;
+  font-size: var(--font-md);
+  min-height: 56px;
+  border-radius: var(--radius-lg);
+}
+
+/* ===== FULL WIDTH ===== */
+.btn-full {
+  width: 100%;
+}
+
+/* ===== ICON BUTTON ===== */
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.btn-icon-sm {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  min-height: 36px;
+}
+
+/* ===== BUTTON GROUP ===== */
+.btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-group .btn {
+  flex: 1;
+}
+
+/* ===== ACTION BUTTONS (Start/Pause/Stop) ===== */
+.btn-action {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  min-height: 48px;
+  border-radius: var(--radius-md);
+}
+
+/* ===== FAB (Floating Action Button) ===== */
+.fab {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + var(--space-md));
+  right: var(--space-md);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  font-size: 24px;
+  font-weight: var(--weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px var(--green-glow);
+  z-index: var(--z-sticky);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+}
+
+.fab:active {
+  transform: scale(0.92);
+  box-shadow: 0 4px 16px var(--green-glow-strong);
+}
+
+/* ===== LOADING BUTTON ===== */
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn.loading::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}

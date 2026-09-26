@@ -1,0 +1,136 @@
+/* ============================================
+   Bottom Navigation (5 tabs)
+   ============================================ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-nav-height);
+  padding-bottom: var(--safe-bottom);
+  background: rgba(18, 26, 46, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  z-index: var(--z-bottom-nav);
+  max-width: 100%;
+}
+
+/* ===== NAV ITEM ===== */
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-item:active {
+  transform: scale(0.92);
+}
+
+/* ===== ACTIVE STATE ===== */
+.nav-item.active {
+  color: var(--green-primary);
+}
+
+.nav-item.active .nav-item-icon {
+  filter: drop-shadow(0 0 10px var(--green-glow-strong));
+  transform: translateY(-2px);
+}
+
+.nav-item.active .nav-item-label {
+  font-weight: var(--weight-bold);
+}
+
+/* ===== ICON ===== */
+.nav-item-icon {
+  font-size: 22px;
+  line-height: 1;
+  transition: transform var(--transition-base);
+  display: block;
+}
+
+/* ===== LABEL ===== */
+.nav-item-label {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ===== BADGE ===== */
+.nav-item-badge {
+  position: absolute;
+  top: 2px;
+  right: 20%;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background: var(--danger);
+  color: #fff;
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-card);
+}
+
+/* ===== CENTER FAB (optional, if you want highlighted center) ===== */
+.nav-item.nav-fab {
+  margin-top: -20px;
+}
+
+.nav-item.nav-fab .nav-item-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+  color: #0A0F1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px var(--green-glow);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.nav-item.nav-fab.active .nav-item-icon {
+  filter: none;
+  transform: none;
+  box-shadow: 0 6px 32px var(--green-glow-strong);
+}
+
+/* ===== ACTIVE INDICATOR DOT ===== */
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background: var(--green-primary);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 8px var(--green-glow-strong);
+}

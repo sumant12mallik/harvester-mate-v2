@@ -1,0 +1,181 @@
+/* ============================================
+   Dealer Ledger Page
+   ============================================ */
+
+.dealer-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dealer-summary-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.dealer-summary-card.green {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.dealer-summary-card.red {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 71, 87, 0.05));
+  border-color: rgba(255, 71, 87, 0.3);
+}
+
+.dealer-summary-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--weight-semibold);
+  margin-bottom: 4px;
+}
+
+.dealer-summary-value {
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'SF Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.dealer-summary-value.green { color: var(--green-primary); }
+.dealer-summary-value.red { color: var(--danger); }
+
+/* ===== DEALER CARD ===== */
+.dealer-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dealer-card:active {
+  transform: scale(0.99);
+  background: var(--bg-elevated);
+}
+
+.dealer-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #9C6FFF, #6A3FCC);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(156, 111, 255, 0.3);
+}
+
+.dealer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dealer-name {
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.dealer-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.dealer-right {
+  text-align: right;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.dealer-amount {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'SF Mono', monospace;
+}
+
+.dealer-amount.paid {
+  color: var(--green-primary);
+}
+
+.dealer-amount.due {
+  color: var(--warning);
+}
+
+/* ===== LEDGER ENTRY ROW ===== */
+.ledger-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.ledger-entry-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.ledger-entry-icon.credit {
+  background: rgba(0, 255, 136, 0.15);
+  color: var(--green-primary);
+}
+
+.ledger-entry-icon.debit {
+  background: rgba(255, 71, 87, 0.15);
+  color: var(--danger);
+}
+
+.ledger-entry-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ledger-entry-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ledger-entry-date {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ledger-entry-amount {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'SF Mono', monospace;
+  flex-shrink: 0;
+}
+
+.ledger-entry-amount.credit { color: var(--green-primary); }
+.ledger-entry-amount.debit { color: var(--danger); }

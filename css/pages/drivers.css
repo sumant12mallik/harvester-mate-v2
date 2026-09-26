@@ -1,0 +1,133 @@
+/* ============================================
+   Drivers Page
+   ============================================ */
+
+.drivers-body {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  padding-bottom: calc(var(--bottom-nav-height) + 16px);
+}
+
+.drivers-content {
+  padding: 0 var(--space-md);
+  padding-top: calc(var(--navbar-height) + var(--space-md));
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-lg));
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ===== DRIVER CARD ===== */
+.driver-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.driver-card:active {
+  transform: scale(0.99);
+  background: var(--bg-elevated);
+}
+
+.driver-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #4A9EFF, #2979FF);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(74, 158, 255, 0.3);
+}
+
+.driver-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.driver-name {
+  font-size: 15px;
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.driver-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.driver-meta-line {
+  display: block;
+}
+
+.driver-right {
+  text-align: right;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.driver-hours {
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  color: var(--info);
+  font-family: 'SF Mono', monospace;
+}
+
+.driver-amount {
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  color: var(--green-primary);
+  font-family: 'SF Mono', monospace;
+}
+
+/* ===== DRIVER STATS ROW ===== */
+.driver-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.driver-stat {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 12px 8px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.driver-stat-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: 'SF Mono', monospace;
+}
+
+.driver-stat-value.green { color: var(--green-primary); }
+.driver-stat-value.orange { color: var(--warning); }
+.driver-stat-value.blue { color: var(--info); }
+
+.driver-stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+  font-weight: var(--weight-semibold);
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>Invoice - HarvesterMate</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <button class="navbar-btn" onclick="history.back()">←</button>
+      <div class="navbar-brand-text">
+        <div class="navbar-title">Invoice</div>
+        <div class="navbar-subtitle">Customer ka invoice</div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button class="navbar-btn" id="shareBtn">📤</button>
+      <button class="navbar-btn" id="printBtn">🖨️</button>
+    </div>
+  </nav>
+
+  <div class="home-content" style="padding-bottom:40px;">
+
+    <div id="loadingState" style="text-align:center; padding:40px;">
+      <div class="spinner" style="margin:0 auto;"></div>
+      <p style="color:#7A8BA8; font-size:13px; margin-top:12px;">Loading invoice...</p>
+    </div>
+
+    <div id="invoiceContainer" style="display:none;">
+
+      <div class="card" style="padding:20px; background:#fff; color:#1a2027; margin-bottom:16px;" id="invoicePreview">
+        <!-- Filled by JS -->
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button class="btn btn-primary btn-full" id="downloadBtn">📥 Download Invoice</button>
+        <button class="btn btn-secondary btn-full" id="whatsappBtn">📱 Send via WhatsApp</button>
+      </div>
+
+    </div>
+
+    <div id="errorState" style="display:none; text-align:center; padding:60px 20px;">
+      <div style="font-size:60px; opacity:0.3;">📄</div>
+      <h3 style="color:#B0BEC5; margin-top:16px; font-size:16px;">Invoice nahi mila</h3>
+      <p style="color:#7A8BA8; font-size:13px; margin-top:8px;">Customer ID missing hai</p>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { auth, db } from '/js/config/firebase-config.js';
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const params = new URLSearchParams(window.location.search);
+    const customerId = params.get('id') || params.get('customer');
+    const seasonParam = params.get('season');
+
+    let customer = null;
+
+    function escape(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function formatAmount(n) {
+      return `₹${Number(n || 0).toLocaleString('en-IN')}`;
+    }
+
+    function formatDate(ts) {
+      return new Date(ts).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    async function loadInvoice() {
+      if (!customerId) {
+        showError();
+        return;
+      }
+
+      try {
+        const ownerId = auth.currentUser?.uid;
+        const season = localStorage.getItem('hm_selected_season') || 'Kharif';
+        const year = localStorage.getItem('hm_selected_year') || new Date().getFullYear();
+        const seasonId = seasonParam || `${season}_${year}`.replace(/\s+/g, '');
+
+        const snap = await getDoc(doc(db, `harvesters/${ownerId}/seasons/${seasonId}/customers/${customerId}`));
+
+        if (!snap.exists()) {
+          showError();
+          return;
+        }
+
+        customer = { id: snap.id, seasonId, ...snap.data() };
+        renderInvoice();
+      } catch (e) {
+        console.error('Load failed:', e);
+        showError();
+      }
+    }
+
+    function renderInvoice() {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('invoiceContainer').style.display = 'block';
+
+      const c = customer;
+      const due = Math.max(0, (c.totalAmount || 0) - (c.totalPaid || 0));
+      const invoiceNo = `INV-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(c.id || '').slice(-4).toUpperCase()}`;
+
+      const ownerName = localStorage.getItem('hm_owner_name') || 'Harvester Owner';
+      const ownerMobile = localStorage.getItem('hm_owner_mobile') || '';
+
+      document.getElementById('invoicePreview').innerHTML = `
+        <div style="text-align:center; padding-bottom:16px; border-bottom:2px solid #00FF88; margin-bottom:16px;">
+          <div style="font-size:24px; font-weight:800; color:#00CC6A;">HarvesterMate</div>
+          <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase; letter-spacing:0.1em;">Work Invoice</div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; margin-bottom:16px; font-size:12px;">
+          <div>
+            <div style="color:#7A8BA8; font-size:10px; text-transform:uppercase;">Invoice No</div>
+            <div style="font-weight:700;">${invoiceNo}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="color:#7A8BA8; font-size:10px; text-transform:uppercase;">Date</div>
+            <div style="font-weight:700;">${formatDate(c.createdAt || Date.now())}</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:12px 0; border-top:1px solid #eee; border-bottom:1px solid #eee; margin-bottom:16px; font-size:12px;">
+          <div>
+            <div style="color:#7A8BA8; font-size:10px; text-transform:uppercase; margin-bottom:4px;">From</div>
+            <div style="font-weight:700; color:#1a2027;">${escape(ownerName)}</div>
+            ${ownerMobile ? `<div style="color:#5A6B7C;">+91 ${escape(ownerMobile)}</div>` : ''}
+          </div>
+          <div>
+            <div style="color:#7A8BA8; font-size:10px; text-transform:uppercase; margin-bottom:4px;">To</div>
+            <div style="font-weight:700; color:#1a2027;">${escape(c.name)}</div>
+            <div style="color:#5A6B7C;">${escape(c.village || '')}</div>
+            <div style="color:#5A6B7C;">+91 ${escape(c.mobile || '')}</div>
+          </div>
+        </div>
+
+        <div style="font-size:11px; color:#7A8BA8; text-transform:uppercase; margin-bottom:8px;">Work Details</div>
+        <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:16px;">
+          <thead>
+            <tr style="background:#f8fafc;">
+              <th style="text-align:left; padding:8px; color:#7A8BA8; font-weight:600; font-size:10px; text-transform:uppercase;">Type</th>
+              <th style="text-align:right; padding:8px; color:#7A8BA8; font-weight:600; font-size:10px; text-transform:uppercase;">Time</th>
+              <th style="text-align:right; padding:8px; color:#7A8BA8; font-weight:600; font-size:10px; text-transform:uppercase;">Rate</th>
+              <th style="text-align:right; padding:8px; color:#7A8BA8; font-weight:600; font-size:10px; text-transform:uppercase;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${c.time2WSec > 0 ? `
+            <tr style="border-bottom:1px solid #f0f0f0;">
+              <td style="padding:10px 8px;">2 Wheel</td>
+              <td style="padding:10px 8px; text-align:right;">${((c.time2WSec || 0) / 3600).toFixed(2)}h</td>
+              <td style="padding:10px 8px; text-align:right;">${formatAmount(c.rate2W || 0)}</td>
+              <td style="padding:10px 8px; text-align:right; font-weight:700; color:#00CC6A;">${formatAmount(c.amount2W || 0)}</td>
+            </tr>` : ''}
+            ${c.time4WSec > 0 ? `
+            <tr style="border-bottom:1px solid #f0f0f0;">
+              <td style="padding:10px 8px;">4 Wheel</td>
+              <td style="padding:10px 8px; text-align:right;">${((c.time4WSec || 0) / 3600).toFixed(2)}h</td>
+              <td style="padding:10px 8px; text-align:right;">${formatAmount(c.rate4W || 0)}</td>
+              <td style="padding:10px 8px; text-align:right; font-weight:700; color:#00CC6A;">${formatAmount(c.amount4W || 0)}</td>
+            </tr>` : ''}
+          </tbody>
+        </table>
+
+        <div style="background:#f8fafc; padding:12px; border-radius:8px; font-size:13px;">
+          <div style="display:flex; justify-content:space-between; padding:4px 0;">
+            <span style="color:#5A6B7C;">Total Work</span>
+            <span style="font-weight:700; color:#00CC6A;">${formatAmount(c.totalAmount || 0)}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:4px 0;">
+            <span style="color:#5A6B7C;">Total Paid</span>
+            <span style="font-weight:700; color:#00CC6A;">${formatAmount(c.totalPaid || 0)}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:10px 0 0; border-top:2px solid #e5e9ef; margin-top:6px; font-size:16px;">
+            <span style="font-weight:700;">${due > 0 ? 'Balance Due' : 'Status'}</span>
+            <span style="font-weight:800; color:${due > 0 ? '#EF5350' : '#00CC6A'};">
+              ${due > 0 ? formatAmount(due) : '✅ PAID'}
+            </span>
+          </div>
+        </div>
+
+        <div style="text-align:center; padding-top:20px; margin-top:16px; border-top:1px solid #eee; font-size:10px; color:#7A8BA8;">
+          <div style="font-weight:700; color:#00CC6A;">HarvesterMate</div>
+          <div>For a Better Harvest Tomorrow</div>
+          <div>support@harvestermate.app</div>
+        </div>
+      `;
+    }
+
+    function showError() {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('invoiceContainer').style.display = 'none';
+      document.getElementById('errorState').style.display = 'block';
+    }
+
+    document.getElementById('downloadBtn')?.addEventListener('click', () => {
+      const html = document.getElementById('invoicePreview').outerHTML;
+      const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Invoice</title></head><body>${html}</body></html>`], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Invoice_${customer?.name || 'Customer'}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('printBtn')?.addEventListener('click', () => {
+      window.print();
+    });
+
+    document.getElementById('shareBtn')?.addEventListener('click', shareOnWhatsApp);
+    document.getElementById('whatsappBtn')?.addEventListener('click', shareOnWhatsApp);
+
+    function shareOnWhatsApp() {
+      if (!customer) return;
+      const mobile = String(customer.mobile || '').replace(/\D/g, '');
+      const num = mobile.length === 10 ? '91' + mobile : mobile;
+      const due = Math.max(0, (customer.totalAmount || 0) - (customer.totalPaid || 0));
+      const text = `🧾 *Invoice Summary*\n\n*${customer.name}* ji,\n\nTotal Work: ₹${customer.totalAmount || 0}\nPaid: ₹${customer.totalPaid || 0}\n${due > 0 ? 'Due: ₹' + due : '✅ Fully Paid'}\n\nThank you!`;
+      window.open(`https://wa.me/${num}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    loadInvoice();
+  </script>
+</body>
+</html>

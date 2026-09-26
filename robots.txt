@@ -1,0 +1,9 @@
+# HarvesterMate - robots.txt
+User-agent: *
+Allow: /
+Disallow: /pages/admin/
+Disallow: /pages/app/
+Disallow: /functions/
+Disallow: /tests/
+
+Sitemap: https://harvestermate.app/sitemap.xml

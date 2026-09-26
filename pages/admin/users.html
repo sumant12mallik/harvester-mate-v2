@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0A0F1C">
+  <title>All Users - Admin</title>
+  <link rel="icon" href="/assets/icons/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="home-body">
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="/pages/admin/dashboard.html" class="navbar-btn" style="text-decoration:none;">←</a>
+      <div class="navbar-brand-text">
+        <div class="navbar-title">All Users</div>
+        <div class="navbar-subtitle" id="countLabel">0 users</div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Name ya mobile se search...">
+    </div>
+
+    <div class="tabs-pill" id="filterTabs">
+      <button class="pill-tab active" data-filter="all">All</button>
+      <button class="pill-tab" data-filter="owner">Owners</button>
+      <button class="pill-tab" data-filter="user">Users</button>
+      <button class="pill-tab" data-filter="admin">Admins</button>
+    </div>
+
+    <div id="usersList"></div>
+
+  </div>
+
+  <script type="module">
+    import { db } from '/js/config/firebase-config.js';
+    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    let allUsers = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    async function loadUsers() {
+      try {
+        const snap = await getDocs(collection(db, 'users'));
+        allUsers = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+        applyFilters();
+      } catch (e) {
+        console.error('Load failed:', e);
+      }
+    }
+
+    function applyFilters() {
+      let list = [...allUsers];
+
+      if (currentFilter !== 'all') {
+        list = list.filter(u => u.role === currentFilter);
+      }
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(u =>
+          (u.name || '').toLowerCase().includes(q) ||
+          (u.mobile || '').includes(q) ||
+          (u.village || '').toLowerCase().includes(q)
+        );
+      }
+
+      document.getElementById('countLabel').textContent = `${list.length} user${list.length === 1 ? '' : 's'}`;
+
+      const container = document.getElementById('usersList');
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="card" style="text-align:center; padding:40px;">
+            <div style="font-size:48px; opacity:0.3;">👥</div>
+            <p style="color:#7A8BA8; font-size:13px; margin-top:12px;">Koi user nahi mila</p>
+          </div>
+        `;
+        return;
+      }
+
+      const roleColors = {
+        owner: { color: '#00FF88', icon: '🚜' },
+        user: { color: '#4A9EFF', icon: '👤' },
+        admin: { color: '#FF4757', icon: '🛡️' }
+      };
+
+      container.innerHTML = list.map(u => {
+        const role = roleColors[u.role] || roleColors.user;
+        const isApproved = u.approved !== false;
+        return `
+          <div class="customer-card" data-uid="${u.uid}">
+            <div class="customer-avatar">${(u.name || '?').charAt(0).toUpperCase()}</div>
+            <div class="customer-info">
+              <div class="customer-name">${escape(u.name)} ${!isApproved ? '⏳' : ''}</div>
+              <div class="customer-meta">
+                ${escape(u.mobile || '')} ${u.village ? '• ' + escape(u.village) : ''}
+              </div>
+            </div>
+            <span style="font-size:10px; font-weight:700; color:${role.color};
+                   background:${role.color}22; padding:3px 8px; border-radius:12px;">
+              ${role.icon} ${u.role || 'user'}
+            </span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escape(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    document.querySelectorAll('#filterTabs .pill-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#filterTabs .pill-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      applyFilters();
+    });
+
+    loadUsers();
+  </script>
+</body>
+</html>
